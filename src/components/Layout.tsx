@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from './Header'
-import AsideLeft from './AsideLeft'
-import AsideRight from './AsideRight'
+import AsideLeft from './AsideLeft/AsideLeft'
+import AsideRight from './AsideRight/AsideRight'
 import styles from './Layout.module.scss'
 
 interface LayoutProps {
