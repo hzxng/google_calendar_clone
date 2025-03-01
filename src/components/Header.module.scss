@@ -1,0 +1,180 @@
+@import '@styles/variables.scss';
+
+.headerContainer {
+  padding: 8px;
+  display: flex;
+}
+
+.headerLeft {
+  flex: 1 0 auto;
+  display: flex;
+  align-items: center;
+  min-width: 238px;
+  padding-right: 25px;
+  box-sizing: border-box;
+
+  .menuIconWrapper {
+    margin: 0 4px;
+    padding: 12px;
+  }
+
+  .calendarLogo {
+    display: flex;
+    align-items: center;
+
+    & > img {
+      margin-bottom: 4px;
+      padding-right: 4px;
+    }
+
+    & > span {
+      display: block;
+      padding-left: 4px;
+      font-size: 22px;
+      line-height: 48px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+
+.headerCenter {
+  flex: 1 1 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .dateContainer {
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+
+    .dateControl {
+      margin-right: 4px;
+      display: flex;
+      align-items: center;
+
+      & > button:first-of-type {
+        margin: 4px 20px 4px 0px;
+        padding: 0 24px;
+        border: 1px solid $--gm3-button-outlined-outline-color;
+        height: 40px;
+        border-radius: 9999px;
+        font-size: 14px;
+      }
+
+      & > button:not(:first-of-type) {
+        padding: 4px;
+        width: 32px;
+        height: 32px;
+      }
+    }
+
+    .dateWrapper {
+      margin: 0 8px;
+      padding: 8px;
+      font-size: 22px;
+      line-height: 28px;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+  }
+
+  .settingContainer {
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+
+    & > button {
+      width: 40px;
+      height: 40px;
+      padding: 8px;
+    }
+
+    .questionMarkIcon {
+      margin: 0 2px;
+    }
+
+    .settingIcon {
+      margin-left: 4px;
+    }
+
+    .selectButton {
+      margin-left: 12px;
+
+      & > button {
+        margin: 4px 0;
+        border: 1px solid $--gm3-button-outlined-outline-color;
+        border-radius: 9999px;
+        display: flex;
+        align-items: center;
+        padding: 0 18px;
+        height: 40px;
+        font-size: 14px;
+
+        & > i {
+          width: 18px;
+          height: 18px;
+          margin-left: 8px;
+          display: flex;
+          align-items: center;
+          font-size: 18px;
+        }
+      }
+    }
+
+    .toggleButton {
+      margin-left: 12px;
+
+      & > button {
+        height: 40px;
+      }
+
+      & > button:first-of-type {
+        padding: 0 14px 0 18px;
+        border: 1px solid $--gm3-button-outlined-outline-color;
+        border-end-start-radius: 9999px;
+        border-start-start-radius: 9999px;
+      }
+
+      & > button:last-of-type {
+        padding: 0 18px 0 14px;
+        border: 1px solid $--gm3-button-outlined-outline-color;
+        border-left: none;
+        border-bottom-right-radius: 9999px;
+        border-top-right-radius: 9999px;
+      }
+
+      .active {
+        background-color: rgb(194, 231, 255);
+      }
+    }
+  }
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  padding-left: 2px;
+  padding-right: 4px;
+
+  & > button {
+    width: 40px;
+    height: 40px;
+    padding: 12px 10px 12px 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .profileImg {
+    padding: 8px 6px 8px 14px;
+
+    & > div {
+      width: 32px;
+      height: 32px;
+      overflow: hidden;
+      border-radius: 50%;
+    }
+  }
+}

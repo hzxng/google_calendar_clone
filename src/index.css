@@ -1,1 +1,14 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f8fafd;
+  color: #1f1f1f;
+  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+  box-sizing: border-box;
+}
 
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
