@@ -60,7 +60,7 @@ export default function AsideLeft() {
             </button>
             <div className={styles.calendarList}>
               {MY_CALENDAR_LIST.map((calendar) => (
-                <div className={styles.calendarItem}>
+                <div className={styles.calendarItem} key={calendar.title}>
                   <div className={styles.checkBox}>
                     <div
                       className={styles.iconWrapper}
@@ -86,7 +86,7 @@ export default function AsideLeft() {
             </button>
             <div className={styles.calendarList}>
               {OTHER_CALENDAR_LIST.map((calendar) => (
-                <div className={styles.calendarItem}>
+                <div className={styles.calendarItem} key={calendar.title}>
                   <div className={styles.checkBox}>
                     <div
                       className={styles.iconWrapper}
