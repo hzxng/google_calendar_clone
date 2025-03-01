@@ -1,6 +1,141 @@
 .container {
   width: 256px;
   height: 100%;
-  background-color: aqua;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.buttonSection {
+  height: 84px;
+}
+
+.contentWrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding-right: 8px;
+}
+
+.datePicker {
+  padding-top: 12px;
+  padding-bottom: 8px;
+  height: 224px;
+}
+
+.searchContainer {
+  width: 100%;
+
+  .inputWrapper {
+    margin: 8px 20px 0px 28px;
+    background-color: rgb(233, 238, 246);
+    padding: 0 16px;
+    border-radius: 4px;
+    height: 40px;
+
+    .placeholer {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      gap: 12px;
+      height: 40px;
+    }
+
+    & > input {
+      border: none;
+      background-color: transparent;
+      height: 100%;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+      font-size: 14px;
+      line-height: 24px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+
+.calendarListContainer {
+  padding: 24px 0 8px 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.calendarListWrapper {
+  .viewCalendarBtn {
+    padding-right: 8px;
+    padding-left: 16px;
+    margin-left: 8px;
+    margin-bottom: 4px;
+    font-size: 14px;
+    height: 32px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 224px;
+    align-items: center;
+
+    .iconWrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    .plusIcon {
+      padding: 6px;
+    }
+
+    & i {
+      width: 22px;
+      height: 22px;
+      font-size: 22px;
+    }
+  }
+
+  .calendarList {
+    display: flex;
+    flex-direction: column;
+
+    .calendarItem {
+      margin-left: 8px;
+      display: flex;
+      align-items: center;
+      width: 221px;
+      font-size: 14px;
+
+      .checkBox {
+        width: 36px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-left: 8px;
+
+        .iconWrapper {
+          width: 18px;
+          height: 18px;
+          border-radius: 2px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          & > i {
+            font-size: 18px;
+            color: rgb(255, 255, 255);
+          }
+        }
+      }
+    }
+  }
+}
+
+.termsContainer {
+  margin-top: 174px;
+  padding: 8px 0 8px 28px;
+  font-size: 12px;
 }

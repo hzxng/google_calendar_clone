@@ -1,15 +1,44 @@
 .layout {
   height: 100vh;
   overflow: hidden;
+  position: relative;
 }
 
 .layoutBody {
   display: flex;
   height: calc(100% - 64px);
+  position: relative;
 }
 
 .main {
   flex: 1 1 auto;
   overflow: hidden;
   margin-bottom: 16px;
+}
+
+.createBtn {
+  position: absolute;
+  margin-top: 12px;
+  left: 16px;
+
+  & > button {
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 1px 8px 1px 16px;
+    font-size: 14px;
+    height: 56px;
+    width: 128.344px;
+    border-radius: 16px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.4);
+
+    & > i:first-of-type {
+      font-size: 24px;
+    }
+
+    & > i:last-of-type {
+      font-size: 18px;
+    }
+  }
 }
