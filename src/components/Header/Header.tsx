@@ -9,24 +9,27 @@ import { ReactComponent as WholeMenuIcon } from '@assets/images/whole-menu.svg'
 import styles from './Header.module.scss'
 import cn from 'classnames'
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store/store'
 import { getWeek } from '@utils/getWeek'
+import { selectDate } from '@store/selectedDate'
 
 export default function Header() {
-  const seletedDate = useSelector((state: RootState) => state.date.value)
+  const dispatch = useDispatch()
+  const selectedDate = useSelector((state: RootState) => state.date.value)
+  const [toggleActive, setToggleActive] = useState('calendar')
 
   const calendarTitle = () => {
-    const week = getWeek(seletedDate)
+    const week = getWeek(selectedDate)
     const isMixedYearWeek = week.some(
-      (w) => w.year !== seletedDate.getFullYear()
+      (w) => w.year !== selectedDate.getFullYear()
     )
     const mixedMonthWeek = week
-      .filter((w) => w.month !== seletedDate.getMonth() + 1)
+      .filter((w) => w.month !== selectedDate.getMonth() + 1)
       .pop()
 
-    const selectedYear = seletedDate.getFullYear()
-    const selectedMonth = seletedDate.getMonth() + 1
+    const selectedYear = selectedDate.getFullYear()
+    const selectedMonth = selectedDate.getMonth() + 1
 
     if (isMixedYearWeek && mixedMonthWeek) {
       return mixedMonthWeek.year < selectedYear
@@ -41,7 +44,19 @@ export default function Header() {
     }
   }
 
-  const [toggleActive, setToggleActive] = useState('calendar')
+  const handleClickMove = (type: string) => {
+    let dateDiff
+
+    if (type === 'prev') dateDiff = selectedDate.getDate() - 7
+    else dateDiff = selectedDate.getDate() + 7
+
+    const newDate = new Date(selectedDate.setDate(dateDiff))
+    dispatch(selectDate(newDate))
+  }
+
+  const handleMoveToToday = () => {
+    dispatch(selectDate(new Date()))
+  }
 
   return (
     <header className={styles.headerContainer}>
@@ -63,11 +78,11 @@ export default function Header() {
       <div className={styles.headerCenter}>
         <div className={styles.dateContainer}>
           <div className={styles.dateControl}>
-            <button>오늘</button>
-            <button>
+            <button onClick={handleMoveToToday}>오늘</button>
+            <button onClick={() => handleClickMove('prev')}>
               <ChevronLeftIcon width={24} height={24} />
             </button>
-            <button>
+            <button onClick={() => handleClickMove('next')}>
               <ChevronRightIcon width={24} height={24} />
             </button>
           </div>

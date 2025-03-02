@@ -61,6 +61,11 @@
         height: 40px;
         border-radius: 9999px;
         font-size: 14px;
+        white-space: nowrap;
+
+        &:hover {
+          background-color: #e7e8eb;
+        }
       }
 
       & > button:not(:first-of-type) {
@@ -125,6 +130,7 @@
 
     .toggleButton {
       margin-left: 12px;
+      white-space: nowrap;
 
       & > button {
         height: 40px;
