@@ -1,17 +1,45 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './CreateModal.module.scss'
 import cn from 'classnames'
+import { useDispatch } from 'react-redux'
+import { createSchedule } from '@store/schedule'
+import { modalDateFormat, timeformat } from '@utils/formatter'
 
-export default function CreateModal() {
+export default function CreateModal({
+  handleClose,
+  date,
+  time,
+}: {
+  handleClose: () => void
+  date: string
+  time: number
+}) {
   const [title, setTitle] = useState('')
   const [isFocus, setIsFocus] = useState(false)
   const [isClicked, setIsClicked] = useState(false)
+  const [selectedStart, setSelectedStart] = useState<number>(time)
+  const [selectedEnd, setSelectedEnd] = useState<number>(time + 1)
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    setIsFocus(true)
+  }, [])
+
+  const handleClickSave = () => {
+    const newSchedule = { title, start: selectedStart, end: selectedEnd }
+    dispatch(createSchedule({ date, newSchedule }))
+
+    handleClose()
+  }
 
   return (
     <div className={styles.modalContainer}>
       <div className={styles.modalHeader}>
         <i className="material-symbols-outlined">drag_handle</i>
-        <i className="material-symbols-outlined">close</i>
+        <i className="material-symbols-outlined" onClick={handleClose}>
+          close
+        </i>
       </div>
       <div className={styles.modalBody}>
         <div className={styles.title}>
@@ -38,10 +66,10 @@ export default function CreateModal() {
                   onClick={() => setIsClicked(true)}
                 >
                   <div>
-                    <span>3월 4일(화요일)</span>
-                    <span>오전 12:30</span>
+                    <span>{modalDateFormat(new Date(date))}</span>
+                    <span>{timeformat(time, 'modal')}</span>
                     <span>-</span>
-                    <span>오전 1:30</span>
+                    <span>{timeformat(time + 1, 'modal')}</span>
                   </div>
                   <div>시간대 • 반복 안함</div>
                 </button>
@@ -49,10 +77,10 @@ export default function CreateModal() {
               {isClicked && (
                 <div className={styles.selects}>
                   <div className={styles.selectTimeWrapper}>
-                    <button>3월 4일 (화요일)</button>
-                    <button>오전 12:00</button>
+                    <button>{modalDateFormat(new Date(date))}</button>
+                    <button>{timeformat(selectedStart, 'modal')}</button>
                     <span>-</span>
-                    <button>오전 1:00</button>
+                    <button>{timeformat(selectedEnd, 'modal')}</button>
                   </div>
                   <div>
                     <div className={styles.checkAllDay}>
@@ -78,7 +106,9 @@ export default function CreateModal() {
       </div>
       <div className={styles.modalFooter}>
         <button className={styles.option}>옵션 더보기</button>
-        <button className={styles.saveBtn}>저장</button>
+        <button className={styles.saveBtn} onClick={handleClickSave}>
+          저장
+        </button>
       </div>
     </div>
   )

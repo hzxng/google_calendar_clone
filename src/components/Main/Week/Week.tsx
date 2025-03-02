@@ -1,13 +1,13 @@
 import { getWeek } from '@utils/getWeek'
 import styles from './Week.module.scss'
-import { dateformat } from '@utils/formatter'
+import { dateformat, weekDays } from '@utils/formatter'
 import cn from 'classnames'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store/store'
 
 export default function Week() {
   const selectedDate = useSelector((state: RootState) => state.date.value)
-  const weekDays = ['일', '월', '화', '수', '목', '금', '토']
+
   const holidays = new Map()
   holidays.set('2025-3-3', ['삼일절'])
 

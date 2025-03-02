@@ -1,18 +1,15 @@
 import { timeformat } from '@utils/formatter'
 import styles from './Schedule.module.scss'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store/store'
 
 export default function Schedule({ date }: { date: string }) {
-  const mySchedule = new Map()
-  mySchedule.set('2025-3-2', [
-    {
-      title: '과제3',
-      start: 10,
-      end: 15,
-    },
-  ])
+  const schedules = useSelector(
+    (state: RootState) => state.schedule.value.schedules
+  )
 
   const schedule: { title: string; start: number; end: number }[] =
-    mySchedule.get(date) || []
+    schedules[date] || []
 
   return (
     <>
