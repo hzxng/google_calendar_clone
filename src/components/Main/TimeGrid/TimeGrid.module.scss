@@ -1,0 +1,23 @@
+.timeGrid {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(24, 1fr);
+
+  .dayColumn {
+    min-width: 81px;
+    border-right: 1px solid #dde3ea;
+    position: relative;
+
+    &:last-of-type {
+      border: none;
+    }
+
+    .cell {
+      min-height: 48px;
+      border-top: 1px solid #dde3ea;
+      box-sizing: border-box;
+      padding-right: 12px;
+    }
+  }
+}
