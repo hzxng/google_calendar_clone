@@ -1,10 +1,13 @@
-import Header from './components/Header'
+import Layout from '@components/Layout'
+import Main from '@components/Main/Main'
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-    </div>
+    <>
+      <Layout>
+        <Main />
+      </Layout>
+    </>
   )
 }
 

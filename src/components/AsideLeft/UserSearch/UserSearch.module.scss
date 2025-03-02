@@ -1,0 +1,36 @@
+.searchContainer {
+  width: 100%;
+
+  .inputWrapper {
+    margin: 8px 20px 0px 28px;
+    background-color: rgb(233, 238, 246);
+    padding: 0 16px;
+    border-radius: 4px;
+    height: 40px;
+    position: relative;
+
+    .placeholer {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      gap: 12px;
+      height: 40px;
+    }
+
+    & > input {
+      border: none;
+      background-color: transparent;
+      height: 100%;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+      font-size: 14px;
+      line-height: 24px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}

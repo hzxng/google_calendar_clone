@@ -1,0 +1,35 @@
+.container {
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  height: 100%;
+  border-radius: 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  overflow-y: scroll;
+  display: flex;
+  height: fit-content;
+
+  &::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  .timeGridWrapper {
+    flex: 1 1 auto;
+    display: flex;
+
+    .blank {
+      width: 8px;
+      border-right: 1px solid #dde3ea;
+      height: fit-content;
+
+      & > div {
+        min-height: 48px;
+        box-sizing: border-box;
+        border-top: 1px solid #dde3ea;
+      }
+    }
+  }
+}
