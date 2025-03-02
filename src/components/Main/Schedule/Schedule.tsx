@@ -23,6 +23,7 @@ export default function Schedule({ date }: { date: string }) {
             height: `${(end - start) * 48 - 6}px`,
             top: `${start * 48}px`,
           }}
+          key={`${title}-${start}-${end}`}
         >
           {title}
           <br />

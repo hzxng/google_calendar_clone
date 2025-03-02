@@ -9,8 +9,38 @@ import { ReactComponent as WholeMenuIcon } from '@assets/images/whole-menu.svg'
 import styles from './Header.module.scss'
 import cn from 'classnames'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store/store'
+import { getWeek } from '@utils/getWeek'
 
 export default function Header() {
+  const seletedDate = useSelector((state: RootState) => state.date.value)
+
+  const calendarTitle = () => {
+    const week = getWeek(seletedDate)
+    const isMixedYearWeek = week.some(
+      (w) => w.year !== seletedDate.getFullYear()
+    )
+    const mixedMonthWeek = week
+      .filter((w) => w.month !== seletedDate.getMonth() + 1)
+      .pop()
+
+    const selectedYear = seletedDate.getFullYear()
+    const selectedMonth = seletedDate.getMonth() + 1
+
+    if (isMixedYearWeek && mixedMonthWeek) {
+      return mixedMonthWeek.year < selectedYear
+        ? `${mixedMonthWeek.year}년 ${mixedMonthWeek.month}월 – ${selectedYear}년 ${selectedMonth}월`
+        : `${selectedYear}년 ${selectedMonth}월 – ${mixedMonthWeek.year}년 ${mixedMonthWeek.month}월`
+    } else if (!isMixedYearWeek && mixedMonthWeek) {
+      return mixedMonthWeek.month < selectedMonth
+        ? `${selectedYear}년 ${mixedMonthWeek.month}월 – ${selectedMonth}월`
+        : `${selectedYear}년 ${selectedMonth}월 – ${mixedMonthWeek.month}월`
+    } else {
+      return `${selectedYear}년 ${selectedMonth}월`
+    }
+  }
+
   const [toggleActive, setToggleActive] = useState('calendar')
 
   return (
@@ -41,7 +71,7 @@ export default function Header() {
               <ChevronRightIcon width={24} height={24} />
             </button>
           </div>
-          <div className={styles.dateWrapper}>2025년 2월 – 3월</div>
+          <div className={styles.dateWrapper}>{calendarTitle()}</div>
         </div>
         <div className={styles.settingContainer}>
           <button>

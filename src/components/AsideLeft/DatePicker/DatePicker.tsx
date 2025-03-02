@@ -4,12 +4,16 @@ import { ko } from 'date-fns/locale'
 import 'react-day-picker/style.css'
 import { css } from './DatePicker.style'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { selectDate } from '@store/selectedDate'
 
 export default function DatePicker() {
   const [selectedDate, setSelectedDate] = useState<Date>()
+  const dispatch = useDispatch()
 
   const handleDateClick = (date: Date | undefined) => {
     setSelectedDate(date)
+    dispatch(selectDate(date))
   }
 
   return (

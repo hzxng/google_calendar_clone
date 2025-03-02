@@ -2,14 +2,19 @@ import { getWeek } from '@utils/getWeek'
 import styles from './Week.module.scss'
 import { dateformat } from '@utils/formatter'
 import cn from 'classnames'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store/store'
 
 export default function Week() {
+  const selectedDate = useSelector((state: RootState) => state.date.value)
   const weekDays = ['일', '월', '화', '수', '목', '금', '토']
   const holidays = new Map()
   holidays.set('2025-3-3', ['삼일절'])
 
   const myAllDaySchedule = new Map()
   myAllDaySchedule.set('2025-3-2', ['과제1', '과제2'])
+
+  const week = getWeek(selectedDate)
 
   return (
     <div className={styles.weekContainer}>
@@ -19,7 +24,7 @@ export default function Week() {
       <div className={styles.week}>
         <div className={styles.weekday}>
           <div className={styles.blank} />
-          {getWeek(new Date()).map(({ fullDate, day }, i) => {
+          {week.map(({ fullDate, day }, i) => {
             const todayFullDate = dateformat(new Date())
 
             return (
@@ -37,7 +42,7 @@ export default function Week() {
         </div>
         <div className={styles.schedule}>
           <div className={styles.blank} />
-          {getWeek(new Date()).map(({ fullDate }) => (
+          {week.map(({ fullDate }) => (
             <div className={styles.daySchedule} key={fullDate}>
               {myAllDaySchedule.has(fullDate) &&
                 myAllDaySchedule.get(fullDate).map((title: string) => (
