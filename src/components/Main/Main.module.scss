@@ -1,0 +1,217 @@
+.container {
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  height: 100%;
+  border-radius: 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.top {
+  display: flex;
+
+  .timezone {
+    margin-left: 8px;
+
+    & > div {
+      position: relative;
+      top: 86px;
+      height: 20px;
+      padding-right: 8px;
+      max-width: 80px;
+      min-width: 40px;
+      color: #444746;
+      font-size: 0.6875rem;
+      line-height: 1rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+  }
+
+  .week {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    position: relative;
+
+    .weekday {
+      height: 84px;
+      display: flex;
+      padding-right: 16px;
+
+      .day {
+        flex: 1 1 0%;
+        min-width: 81px;
+
+        & > div:first-of-type {
+          font-size: 11px;
+          font-weight: 500;
+          line-height: 32px;
+          margin-top: 2px;
+          text-align: center;
+        }
+
+        & > div:last-of-type {
+          font-size: 26px;
+          line-height: 46px;
+          width: 46px;
+          height: 46px;
+          margin: 0 auto;
+          text-align: center;
+          font-weight: 400;
+        }
+      }
+
+      .today {
+        & > div:first-of-type {
+          color: #0b57d0;
+        }
+
+        & > div:last-of-type {
+          background-color: #0b57d0;
+          color: white;
+          border-radius: 50%;
+        }
+      }
+    }
+
+    .schedule {
+      display: flex;
+      padding-right: 16px;
+      min-height: 24px;
+
+      & > div:nth-child(2) {
+        border-left: 1px solid #dde3ea;
+      }
+
+      .daySchedule {
+        flex: 1 1 0%;
+        min-width: 80px;
+        border-right: 1px solid #dde3ea;
+        padding-right: 12px;
+        display: flex;
+        flex-direction: column;
+
+        &:last-of-type {
+          border: none;
+        }
+
+        & > div {
+          padding: 0 8px;
+          height: 22px;
+          color: #ffffff;
+          font-size: 12px;
+          font-weight: 400;
+          border-radius: 6px;
+          display: flex;
+          align-items: center;
+          margin-bottom: 2px;
+        }
+
+        .holiday {
+          background-color: rgb(11, 128, 67);
+        }
+
+        .mySchedule {
+          background-color: rgb(3, 155, 229);
+        }
+      }
+    }
+
+    .blank {
+      width: 9px;
+      min-width: 9px;
+    }
+  }
+}
+
+.main {
+  overflow-y: scroll;
+  display: flex;
+  height: fit-content;
+
+  &::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  .time {
+    min-width: 40px;
+    max-width: 61.27px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+
+    .hour {
+      min-height: 48px;
+      padding-right: 8px;
+      text-align: right;
+
+      & > span {
+        position: relative;
+        top: -6px;
+        color: #444746;
+        font-size: 0.6875rem;
+        line-height: 1rem;
+      }
+    }
+  }
+
+  .timeGridWrapper {
+    flex: 1 1 auto;
+    display: flex;
+
+    .blank {
+      width: 8px;
+      border-right: 1px solid #dde3ea;
+      height: fit-content;
+
+      & > div {
+        min-height: 48px;
+        box-sizing: border-box;
+        border-top: 1px solid #dde3ea;
+      }
+    }
+
+    .timeGrid {
+      flex: 1 1 auto;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      grid-template-rows: repeat(24, 1fr);
+
+      .hour {
+        min-width: 81px;
+        border-right: 1px solid #dde3ea;
+        position: relative;
+
+        &:last-of-type {
+          border: none;
+        }
+
+        .cell {
+          min-height: 48px;
+          border-top: 1px solid #dde3ea;
+          box-sizing: border-box;
+          padding-right: 12px;
+        }
+
+        .todo {
+          position: absolute;
+          top: 0;
+          z-index: 5;
+          width: calc(100% - 21px);
+          background-color: rgb(3, 155, 229);
+          color: white;
+          border-radius: 6px;
+          min-height: 46px;
+          padding-left: 8px;
+          padding-top: 4px;
+          text-align: left;
+          overflow: hidden;
+          font-size: 12px;
+          line-height: 15px;
+        }
+      }
+    }
+  }
+}

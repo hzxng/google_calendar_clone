@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from './Header'
+import Header from './Header/Header'
 import AsideLeft from './AsideLeft/AsideLeft'
 import AsideRight from './AsideRight/AsideRight'
 import styles from './Layout.module.scss'
