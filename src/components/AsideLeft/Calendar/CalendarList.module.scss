@@ -1,0 +1,82 @@
+@import '@styles/variables.scss';
+
+.calendarListContainer {
+  padding: 24px 0 8px 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.calendarListWrapper {
+  .viewCalendarBtn {
+    padding-right: 8px;
+    padding-left: 16px;
+    margin-left: 8px;
+    margin-bottom: 4px;
+    font-size: 14px;
+    height: 32px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 224px;
+    align-items: center;
+    border-radius: 9999px;
+    transition: background-color 0.1s ease-in-out;
+
+    .iconWrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    .plusIcon {
+      padding: 6px;
+    }
+
+    & i {
+      width: 22px;
+      height: 22px;
+      font-size: 22px;
+    }
+
+    &:hover {
+      background-color: $button-hover-color;
+    }
+  }
+
+  .calendarList {
+    display: flex;
+    flex-direction: column;
+
+    .calendarItem {
+      margin-left: 8px;
+      display: flex;
+      align-items: center;
+      width: 221px;
+      font-size: 14px;
+
+      .checkBox {
+        width: 36px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-left: 8px;
+
+        .iconWrapper {
+          width: 18px;
+          height: 18px;
+          border-radius: 2px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+
+          & > i {
+            font-size: 18px;
+            color: #ffffff;
+          }
+        }
+      }
+    }
+  }
+}

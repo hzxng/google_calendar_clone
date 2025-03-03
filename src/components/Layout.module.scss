@@ -1,0 +1,51 @@
+.layout {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.layoutBody {
+  display: flex;
+  height: calc(100% - 64px);
+  position: relative;
+}
+
+.main {
+  flex: 1 1 auto;
+  overflow: hidden;
+  margin-bottom: 16px;
+  min-width: fit-content;
+}
+
+.createBtn {
+  position: absolute;
+  margin-top: 12px;
+  left: 16px;
+  z-index: 3;
+
+  & > button {
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 1px 8px 1px 16px;
+    font-size: 14px;
+    height: 56px;
+    width: 128.344px;
+    border-radius: 16px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.4);
+    transition: background-color 0.1s ease-in-out;
+
+    &:hover {
+      background-color: #edf2fc;
+    }
+
+    & > i:first-of-type {
+      font-size: 24px;
+    }
+
+    & > i:last-of-type {
+      font-size: 18px;
+    }
+  }
+}

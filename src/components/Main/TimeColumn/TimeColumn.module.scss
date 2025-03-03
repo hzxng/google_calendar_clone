@@ -1,0 +1,25 @@
+.timeColumn {
+  min-width: 61.27px;
+  max-width: 61.27px;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+
+  .hour {
+    min-height: 48px;
+    box-sizing: border-box;
+    padding-right: 8px;
+    text-align: right;
+
+    & > span {
+      position: relative;
+      top: -6px;
+      color: #444746;
+      font-size: 0.6875rem;
+      line-height: 1rem;
+      white-space: nowrap;
+    }
+  }
+}

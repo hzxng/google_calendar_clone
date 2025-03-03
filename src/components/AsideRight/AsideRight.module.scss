@@ -1,0 +1,83 @@
+.container {
+  width: 56px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin-bottom: 56px;
+}
+
+.iconContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.iconList {
+  display: flex;
+  flex-direction: column;
+}
+
+.iconWrapper {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  img,
+  svg {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+  }
+
+  .img {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease-in-out;
+    border-radius: 50%;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(66, 133, 244, 0.24);
+    }
+  }
+
+  .keep {
+    &:hover {
+      background-color: rgba(251, 188, 4, 0.24);
+    }
+  }
+
+  .plus {
+    &:hover {
+      background-color: rgb(232, 235, 238);
+    }
+  }
+}
+
+.divider {
+  width: 20px;
+  margin: 16px 18px 0 18px;
+  padding-bottom: 16px;
+  border-top: 1px solid rgba(100, 121, 143, 0.12);
+}
+
+.hiddenBtn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}

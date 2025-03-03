@@ -1,0 +1,20 @@
+@import '@styles/variables.scss';
+
+.todo {
+  position: absolute;
+  top: 0;
+  z-index: 5;
+  width: calc(100% - 21px);
+  background-color: $my-calendar-color;
+  color: white;
+  border-radius: 6px;
+  height: 46px;
+  padding-left: 8px;
+  padding-top: 4px;
+  text-align: left;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 15px;
+  white-space: nowrap;
+  cursor: pointer;
+}

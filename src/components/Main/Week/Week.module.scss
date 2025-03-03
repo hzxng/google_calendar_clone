@@ -1,0 +1,27 @@
+@import '@styles/variables.scss';
+
+.weekContainer {
+  display: flex;
+}
+
+.timezone {
+  margin-left: 8px;
+  position: relative;
+  top: 86px;
+  height: 20px;
+  padding-right: 8px;
+  max-width: 80px;
+  min-width: 40px;
+  color: #444746;
+  font-size: 0.6875rem;
+  line-height: 1rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.week {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  position: relative;
+}
