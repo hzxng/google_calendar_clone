@@ -2,29 +2,34 @@ import { timeformat } from '@utils/formatter'
 import styles from './Schedule.module.scss'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store/store'
-import { useState } from 'react'
-import DeleteModal from '@components/Modal/DeleteModal'
 
 export default function Schedule({
-  date,
   fullDate,
+  setShow,
+  setPosition,
+  setScheduleInfo,
 }: {
-  date: Date
   fullDate: string
+  setShow: React.Dispatch<React.SetStateAction<boolean>>
+  setPosition: React.Dispatch<
+    React.SetStateAction<{
+      top: number
+      left: number
+    }>
+  >
+  setScheduleInfo: React.Dispatch<
+    React.SetStateAction<{
+      title: string
+      startTime: number
+      endTime: number
+    } | null>
+  >
 }) {
   const schedules = useSelector(
     (state: RootState) => state.schedule.value.schedules
   )
   const schedule: { title: string; start: number; end: number }[] =
     schedules[fullDate] || []
-
-  const [show, setShow] = useState(false)
-  const [scheduleInfo, setScheduleInfo] = useState<{
-    title: string
-    startTime: number
-    endTime: number
-  } | null>(null)
-  const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 })
 
   const handleClick = (
     event: React.MouseEvent<HTMLDivElement>,
@@ -36,14 +41,10 @@ export default function Schedule({
     setShow(true)
 
     const rect = event.currentTarget.getBoundingClientRect()
-    setModalPosition({
+    setPosition({
       top: rect.top + window.scrollY,
       left: rect.left + window.scrollX,
     })
-  }
-
-  const handleClose = () => {
-    setShow(false)
   }
 
   return (
@@ -63,15 +64,6 @@ export default function Schedule({
           {timeformat(start)}~{timeformat(end)}
         </div>
       ))}
-      {show && (
-        <DeleteModal
-          handleClose={handleClose}
-          date={date}
-          fullDate={fullDate}
-          scheduleInfo={scheduleInfo}
-          modalPosition={modalPosition}
-        />
-      )}
     </>
   )
 }

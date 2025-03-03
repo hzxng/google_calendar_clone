@@ -7,8 +7,8 @@ import { deleteSchedule } from '@store/schedule'
 import { useDispatch } from 'react-redux'
 
 interface DeleteModalType {
+  isOpen: boolean
   handleClose: () => void
-  date: Date
   fullDate: string
   scheduleInfo: {
     title: string
@@ -22,8 +22,8 @@ interface DeleteModalType {
 }
 
 export default function DeleteModal({
+  isOpen,
   handleClose,
-  date,
   fullDate,
   scheduleInfo,
   modalPosition,
@@ -35,19 +35,30 @@ export default function DeleteModal({
     handleClose()
   }
 
+  const maxLeftPosition = modalPosition.left - 470 < 82.1875
+  const maxTopPosition = modalPosition.top - 100 > 436
+
+  const customModalPosition = {
+    top: maxTopPosition ? '436px' : `${modalPosition.top - 100}px`,
+    left: maxLeftPosition
+      ? `${modalPosition.left + 100}px`
+      : `${modalPosition.left - 470}px`,
+  }
+
   return (
     <Modal
+      isOpen={isOpen}
       handleClose={handleClose}
       type="delete"
       handleDelete={handleDeleteSchedule}
-      modalPosition={modalPosition}
+      modalPosition={customModalPosition}
     >
       <div className={styles.titleWrapper}>
         <div className={styles.badge} />
         <div className={styles.title}>
           <div>{scheduleInfo?.title}</div>
           <div className={styles.time}>
-            <span>{modalDateFormat(date)}</span>
+            <span>{modalDateFormat(new Date(fullDate))}</span>
             <span>•</span>
             <span>
               {timeformat(scheduleInfo?.startTime || 0, 'modal')}~{' '}

@@ -1,35 +1,55 @@
 import styles from './Modal.module.scss'
 import { ReactComponent as DeleteIcon } from '@assets/images/delete.svg'
 import cn from 'classnames'
+import { useEffect, useRef } from 'react'
 
 export default function Modal({
+  isOpen,
   handleClose,
   children,
   type,
   handleDelete,
   modalPosition,
 }: {
+  isOpen: boolean
   handleClose: () => void
   children: React.ReactNode
   type?: string
   handleDelete?: () => void
   modalPosition: {
-    top: number
-    left: number
+    top: string
+    left: string
   }
 }) {
   const isDelete = type === 'delete'
-  const maxLeftPosition = modalPosition.left - 470 < 82.1875
-  const maxTopPosition = modalPosition.top - 100 > 388
+  const modalRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        handleClose()
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isOpen, handleClose])
 
   return (
     <div
+      ref={modalRef}
       className={styles.modalContainer}
       style={{
-        top: maxTopPosition ? '388px' : `${modalPosition.top - 100}px`,
-        left: maxLeftPosition
-          ? `${modalPosition.left + 130}px`
-          : `${modalPosition.left - 470}px`,
+        top: modalPosition.top,
+        left: modalPosition.left,
       }}
     >
       <div

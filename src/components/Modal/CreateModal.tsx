@@ -8,11 +8,13 @@ import SelectBar from '@components/SelectBar/SelectBar'
 import Modal from './Modal'
 
 export default function CreateModal({
+  isOpen,
   handleClose,
   date,
   startTime,
   modalPosition,
 }: {
+  isOpen: boolean
   handleClose: () => void
   date: string
   startTime: number
@@ -27,6 +29,16 @@ export default function CreateModal({
   const [selectedStart, setSelectedStart] = useState<number>(startTime)
   const [selectedEnd, setSelectedEnd] = useState<number>(startTime + 1)
   const [selectedRepeat, setSelectedRepeat] = useState<string>('반복 안함')
+
+  const maxLeftPosition = modalPosition.left - 470 < 82.1875
+  const maxTopPosition = modalPosition.top - 100 > 388
+
+  const customModalPosition = {
+    top: maxTopPosition ? '388px' : `${modalPosition.top - 100}px`,
+    left: maxLeftPosition
+      ? `${modalPosition.left + 100}px`
+      : `${modalPosition.left - 470}px`,
+  }
 
   const dispatch = useDispatch()
 
@@ -46,7 +58,11 @@ export default function CreateModal({
   }
 
   return (
-    <Modal handleClose={handleClose} modalPosition={modalPosition}>
+    <Modal
+      isOpen={isOpen}
+      handleClose={handleClose}
+      modalPosition={customModalPosition}
+    >
       <div className={styles.container}>
         <div className={styles.title}>
           <input
