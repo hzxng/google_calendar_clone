@@ -16,6 +16,16 @@
   .menuIconWrapper {
     margin: 0 4px;
     padding: 12px;
+    transition: background-color 0.1s ease-in-out;
+    border-radius: 50%;
+
+    &:hover {
+      background-color: #e7e8eb;
+    }
+
+    & > svg {
+      cursor: pointer;
+    }
   }
 
   .calendarLogo {
@@ -62,6 +72,7 @@
         border-radius: 9999px;
         font-size: 14px;
         white-space: nowrap;
+        transition: background-color 0.1s ease-in-out;
 
         &:hover {
           background-color: #e7e8eb;
@@ -72,6 +83,12 @@
         padding: 4px;
         width: 32px;
         height: 32px;
+        border-radius: 50%;
+        transition: background-color 0.1s ease-in-out;
+
+        &:hover {
+          background-color: #e7e8eb;
+        }
       }
     }
 
@@ -94,6 +111,12 @@
       width: 40px;
       height: 40px;
       padding: 8px;
+      transition: background-color 0.1s ease-in-out;
+      border-radius: 50%;
+
+      &:hover {
+        background-color: #e7e8eb;
+      }
     }
 
     .questionMarkIcon {
@@ -116,6 +139,7 @@
         padding: 0 18px;
         height: 40px;
         font-size: 14px;
+        transition: background-color 0.1s ease-in-out;
 
         & > i {
           width: 18px;
@@ -124,6 +148,10 @@
           display: flex;
           align-items: center;
           font-size: 18px;
+        }
+
+        &:hover {
+          background-color: #e7e8eb;
         }
       }
     }
@@ -171,6 +199,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: background-color 0.1s ease-in-out;
+    border-radius: 50%;
+
+    &:hover {
+      background-color: #e7e8eb;
+    }
   }
 
   .profileImg {

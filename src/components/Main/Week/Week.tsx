@@ -110,7 +110,11 @@ export default function Week() {
                 ))}
               {holidays.has(fullDate) &&
                 holidays.get(fullDate).map((title: string) => (
-                  <div className={styles.holiday} key={`${fullDate}-${title}`}>
+                  <div
+                    className={styles.holiday}
+                    key={`${fullDate}-${title}`}
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     {title}
                   </div>
                 ))}

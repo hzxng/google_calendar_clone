@@ -21,6 +21,7 @@
   position: absolute;
   margin-top: 12px;
   left: 16px;
+  z-index: 3;
 
   & > button {
     background-color: rgb(255, 255, 255);
@@ -33,6 +34,11 @@
     width: 128.344px;
     border-radius: 16px;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.4);
+    transition: background-color 0.1s ease-in-out;
+
+    &:hover {
+      background-color: #edf2fc;
+    }
 
     & > i:first-of-type {
       font-size: 24px;
