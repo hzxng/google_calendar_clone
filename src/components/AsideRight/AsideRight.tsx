@@ -30,30 +30,33 @@ export default function AsideRight() {
             {ICON_LIST.map((icon) => (
               <div className={styles.iconWrapper} key={icon.alt}>
                 <div
-                  className={cn(styles.hover, {
+                  className={cn(styles.img, {
                     [styles.keep]: icon.alt === 'keep',
                   })}
-                />
-                <img src={icon.src} width={20} height={20} alt={icon.alt} />
+                >
+                  <img src={icon.src} width={20} height={20} alt={icon.alt} />
+                </div>
               </div>
             ))}
           </div>
           <div className={styles.divider} />
           <div className={styles.iconWrapper}>
-            <div className={cn(styles.hover, styles.plus)} />
-            <img
-              src="https://fonts.gstatic.com/s/i/googlematerialicons/add/v21/black-24dp/1x/gm_add_black_24dp.png"
-              width={20}
-              height={20}
-              alt="부가기능 설치하기"
-            />
+            <div className={cn(styles.img, styles.plus)}>
+              <img
+                src="https://fonts.gstatic.com/s/i/googlematerialicons/add/v21/black-24dp/1x/gm_add_black_24dp.png"
+                width={20}
+                height={20}
+                alt="부가기능 설치하기"
+              />
+            </div>
           </div>
         </div>
       </div>
       <div className={styles.hiddenBtn}>
         <div className={styles.iconWrapper}>
-          <div className={cn(styles.hover, styles.plus)} />
-          <ChevronRight width={20} height={20} fill="rgb(95, 99, 104)" />
+          <div className={cn(styles.img, styles.plus)}>
+            <ChevronRight width={20} height={20} fill="#5f6368" />
+          </div>
         </div>
       </div>
     </div>

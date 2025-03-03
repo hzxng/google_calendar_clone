@@ -9,6 +9,13 @@ export const css = `
       display: inline-flex;
       justify-content: center;
       align-items: center;
+      border-radius: 50%;
+      border-radius: 50%;
+      transition: background-color 0.2s ease-in-out;
+
+      &:hover {
+        background-color: #e7e8eb;;
+      } 
     }
   }
 
@@ -72,4 +79,14 @@ export const css = `
       fill: rgb(31, 31, 31);
     }
   }
+
+  .rdp-button_next,
+  .rdp-button_previous {
+    border-radius: 50%;
+    transition: background-color 0.1s ease-in-out;
+
+    &:hover {
+      background-color: #e7e8eb;
+    }
+  } 
 `

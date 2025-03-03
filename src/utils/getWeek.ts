@@ -5,7 +5,13 @@ export const getWeek = (date: Date) => {
   const startOfWeek = new Date(date)
   startOfWeek.setDate(date.getDate() - dayOfWeek)
 
-  const week: { date: Date; fullDate: string; day: number }[] = []
+  const week: {
+    date: Date
+    fullDate: string
+    year: number
+    month: number
+    day: number
+  }[] = []
 
   for (let i = 0; i < 7; i++) {
     const current = new Date(startOfWeek)
@@ -14,6 +20,8 @@ export const getWeek = (date: Date) => {
     week.push({
       date: current,
       fullDate: dateformat(current),
+      year: current.getFullYear(),
+      month: current.getMonth() + 1,
       day: current.getDate(),
     })
   }

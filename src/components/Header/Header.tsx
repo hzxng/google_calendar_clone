@@ -9,9 +9,30 @@ import { ReactComponent as WholeMenuIcon } from '@assets/images/whole-menu.svg'
 import styles from './Header.module.scss'
 import cn from 'classnames'
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '@store/store'
+import { selectDate } from '@store/selectedDate'
+import profileImg from '../../assets/images/profile-img.png'
+import { calendarTitle } from './utils/calendarTitle'
 
 export default function Header() {
+  const dispatch = useDispatch()
+  const selectedDate = useSelector((state: RootState) => state.date.value)
   const [toggleActive, setToggleActive] = useState('calendar')
+
+  const handleClickMove = (type: string) => {
+    let dateDiff
+
+    if (type === 'prev') dateDiff = selectedDate.getDate() - 7
+    else dateDiff = selectedDate.getDate() + 7
+
+    const newDate = new Date(selectedDate.setDate(dateDiff))
+    dispatch(selectDate(newDate))
+  }
+
+  const handleMoveToToday = () => {
+    dispatch(selectDate(new Date()))
+  }
 
   return (
     <header className={styles.headerContainer}>
@@ -33,16 +54,19 @@ export default function Header() {
       <div className={styles.headerCenter}>
         <div className={styles.dateContainer}>
           <div className={styles.dateControl}>
-            <button>오늘</button>
-            <button>
+            <button onClick={handleMoveToToday}>오늘</button>
+            <button onClick={() => handleClickMove('prev')}>
               <ChevronLeftIcon width={24} height={24} />
             </button>
-            <button>
+            <button onClick={() => handleClickMove('next')}>
               <ChevronRightIcon width={24} height={24} />
             </button>
           </div>
-          <div className={styles.dateWrapper}>2025년 2월 – 3월</div>
+          <div className={styles.dateWrapper}>
+            {calendarTitle(selectedDate)}
+          </div>
         </div>
+
         <div className={styles.settingContainer}>
           <button>
             <i className="material-symbols-outlined">search</i>
@@ -59,6 +83,7 @@ export default function Header() {
               <i className="material-symbols-outlined">arrow_drop_down</i>
             </button>
           </div>
+
           <div className={styles.toggleButton}>
             <button
               className={cn({ [styles.active]: toggleActive === 'calendar' })}
@@ -82,12 +107,7 @@ export default function Header() {
         </button>
         <div className={styles.profileImg}>
           <div>
-            <img
-              src="https://lh3.googleusercontent.com/fife/ALs6j_GK0ZJu1jHxFw8Nwiaae1cuAATIA-MD-hh9ZVL3O5_Jd1iAtmJYEWEIE_AHhffgVvLtLEQDm5q6v1q3sHiIu7rajIy0KFWdpvrEISAdkc9DQmkcTW7Ql5WyLdJFMpx66BaIKJX_my7_7_ebGw49I1TSZn2lZVO53Bdj9HFocGfkyRCxq921Py1D2JGn-Wjxk0SmAPlpfMHakQSOOFAjygnaBcYoAEEq7XY2Nwa-ymwX8fxp9AACaeLDC6PudunNejtTY8XXvjOh_dwN99lvo3G7bmxDLvhNeHuxSvlpyufonwkbAatbxzH7NSAEWptLw21WmlrUOwXsdoOb5red8V25mvPSEZF01DlZYbGQwJytusKE4gYK8RIhdG7EsOJfXYPRXjKRfHD_XzRVXV8NKibxTW2yeW197xPwmagyT6-PtTHM5U1Sql677ImMT1eb62j7DgfoMXGuNxz0QayP6_WITw9gSYV18XAThBzXJCDDxJFsRD1mzcfHKkfhvV06FHkHCLgvSFrC1ifA6gdEHdz7sekXyVsGuBR6bsQXjB2emt2zgLCBrR_IR-G9qCqOlqmgFjdStcRQCIt-vpEm001uunj2Dj3tZyOsHU_0Eaj2cL64TS5BTHhQQgSsmaDd5R6UDtHA04ZviZxJ22KVqKftS5SNb78TzBN5MeF0A146-iKMotdANF4Vj4P6fGGUpSiMZrArJyIN9O0Kgron1Ad8OV1QcSRI2P6k4N03dH4HIf5OmDNhlABxQ6eREViEVdWkIeaw8STncroTzuoBuMe1hvKHaUg1Y8Yn8td4EY46dQROxWO5E1drEeLBqRA4juXcwir9fETxfzg8KH54pt0dM4Yd6vveef62v3gpIePU9Kj9YBeWdZPXcFlgjE6Ns8zKO_LvYrvEAFLo72MZ7P9Fn3_4d72_CQ8_a8DuRwE4PjgUh2JGK0_sMLohmoqeo4Ic8nPpt8rhhI6Cc8t1cLHmhpvoHuQmCFUDTyotL2KHJZBYpGPs0lLQ-7oq_HwAVyuhlTzyT5bIye8v7xszWsIBekFH-ftSirOHMGpYWrV5ZhOHalo8NbHpjH6cFkm1yCqtG9Z__IwP7n01w6RWeqShpdQJ85MYYzrwiyJib9miaYNZpRw4YA5M4Q-R6EVBlAAnOF8EAPN-SUhLijV0_Zkje-evg0tt_mD_cmiIul6nKgPbu1WbbAxCqkdjUM6VEDK8mwZs0IPMTKEXeUQCpp6jkxhFT85228bdqbickXJI4Rqm2Hm_MYKsiXgJ0YE4Z0oCseDlXwYfdwZUBZZ_9Vq6obdLOELgI8zLNVMYbkAOOjgL_gTVvy3svD1rTahtA2mpTrrN5hlIkdsYRksANVSGQ42d6N3XREiYPTSWjfpSLikb2_Yl9E3zDLScru5kPGu5HAsSCEqUfZja_cMj7qLSNjiek_wx74ZuauIPyDiQHglYRT7Dso0TZvZf1LbzVW5aRtXk_8kkckDCplFj0LO5zc8ewbDb62gZGPCnCA=s32-c"
-              width={32}
-              height={32}
-              alt="profile-img"
-            />
+            <img src={profileImg} width={32} height={32} alt="profile-img" />
           </div>
         </div>
       </div>
