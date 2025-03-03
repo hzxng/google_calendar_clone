@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 interface ScheduleType {
   value: {
-    allDaySchedules: Record<string, string[]> // 객체 사용
+    allDaySchedules: Record<string, string[]>
     schedules: Record<
       string,
       {
@@ -32,6 +32,22 @@ export const scheduleSlice = createSlice({
         newSchedule,
       ]
     },
+    deleteSchedule: (state, action) => {
+      const { date, schedule } = action.payload
+
+      if (!state.value.schedules[date]) return
+
+      state.value.schedules[date] = state.value.schedules[date].filter(
+        (s) =>
+          s.title !== schedule.title ||
+          s.start !== schedule.startTime ||
+          s.end !== schedule.endTime
+      )
+
+      if (state.value.schedules[date].length === 0) {
+        delete state.value.schedules[date]
+      }
+    },
     createAllDaySchedule: (state, action) => {
       const { date, allDayEvent } = action.payload
       state.value.allDaySchedules[date] = [
@@ -42,5 +58,6 @@ export const scheduleSlice = createSlice({
   },
 })
 
-export const { createSchedule, createAllDaySchedule } = scheduleSlice.actions
+export const { createSchedule, deleteSchedule, createAllDaySchedule } =
+  scheduleSlice.actions
 export default scheduleSlice.reducer

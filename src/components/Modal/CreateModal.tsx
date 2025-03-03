@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { createSchedule } from '@store/schedule'
 import { modalDateFormat, timeformat } from '@utils/formatter'
 import SelectBar from '@components/SelectBar/SelectBar'
+import Modal from './Modal'
 
 export default function CreateModal({
   handleClose,
@@ -29,7 +30,6 @@ export default function CreateModal({
   }, [])
 
   const handleClickSave = () => {
-    console.log(selectedEnd)
     const newSchedule = {
       title: title || '(제목 없음)',
       start: selectedStart,
@@ -41,14 +41,8 @@ export default function CreateModal({
   }
 
   return (
-    <div className={styles.modalContainer}>
-      <div className={styles.modalHeader}>
-        <i className="material-symbols-outlined">drag_handle</i>
-        <i className="material-symbols-outlined" onClick={handleClose}>
-          close
-        </i>
-      </div>
-      <div className={styles.modalBody}>
+    <Modal handleClose={handleClose}>
+      <div className={styles.container}>
         <div className={styles.title}>
           <input
             className={cn({ [styles.focus]: isFocus })}
@@ -125,6 +119,6 @@ export default function CreateModal({
           저장
         </button>
       </div>
-    </div>
+    </Modal>
   )
 }

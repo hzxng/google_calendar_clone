@@ -27,7 +27,7 @@ export default function TimeGrid() {
 
   return (
     <div className={styles.timeGrid}>
-      {week.map(({ fullDate }) => (
+      {week.map(({ date, fullDate }) => (
         <div className={styles.dayColumn} key={`grid-${fullDate}`}>
           {hours.map((h) => (
             <div
@@ -37,7 +37,7 @@ export default function TimeGrid() {
             />
           ))}
 
-          <Schedule date={fullDate} />
+          <Schedule date={date} fullDate={fullDate} />
         </div>
       ))}
       {show && (
