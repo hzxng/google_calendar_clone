@@ -51,15 +51,31 @@ export const scheduleSlice = createSlice({
     createAllDaySchedule: (state, action) => {
       const { date, allDayEvent } = action.payload
 
-      console.log(date, allDayEvent)
       state.value.allDaySchedules[date] = [
         ...(state.value.allDaySchedules[date] || []),
         allDayEvent,
       ]
     },
+    deleteAllDaySchedule: (state, action) => {
+      const { date, schedule } = action.payload
+
+      if (!state.value.allDaySchedules[date]) return
+
+      state.value.allDaySchedules[date] = state.value.allDaySchedules[
+        date
+      ].filter((title) => title !== schedule.title)
+
+      if (state.value.allDaySchedules[date].length === 0) {
+        delete state.value.allDaySchedules[date]
+      }
+    },
   },
 })
 
-export const { createSchedule, deleteSchedule, createAllDaySchedule } =
-  scheduleSlice.actions
+export const {
+  createSchedule,
+  deleteSchedule,
+  createAllDaySchedule,
+  deleteAllDaySchedule,
+} = scheduleSlice.actions
 export default scheduleSlice.reducer

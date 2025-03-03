@@ -6,15 +6,22 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@store/store'
 import { useState } from 'react'
 import CreateModal from '@components/Modal/CreateModal'
+import DeleteModal from '@components/Modal/DeleteModal'
 
 export default function Week() {
   const selectedDate = useSelector((state: RootState) => state.date.value)
-  const [show, setShow] = useState(false)
+  const [createModalShow, setCreateModalShow] = useState(false)
+  const [deleteModalShow, setDeleteModalShow] = useState(false)
   const [fullDate, setFullDate] = useState('')
-  const [modalPosition, setModalPosition] = useState({
+  const [createModalPosition, setCreateModalPosition] = useState({
     top: 0,
     left: 0,
   })
+  const [deleteModalPosition, setDeleteModalPosition] = useState({
+    top: 0,
+    left: 0,
+  })
+  const [scheduleInfo, setScheduleInfo] = useState('')
 
   const holidays = new Map()
   holidays.set('2025-3-3', ['삼일절'])
@@ -29,18 +36,34 @@ export default function Week() {
     event: React.MouseEvent<HTMLDivElement>,
     date: string
   ) => {
-    setShow(true)
+    setCreateModalShow(true)
     setFullDate(date)
 
     const rect = event.currentTarget.getBoundingClientRect()
-    setModalPosition({
+    setCreateModalPosition({
+      top: rect.top + window.scrollY,
+      left: rect.left + window.scrollX,
+    })
+  }
+
+  const handleScheduleClick = (
+    event: React.MouseEvent<HTMLDivElement>,
+    title: string
+  ) => {
+    event.stopPropagation()
+    setScheduleInfo(title)
+    setDeleteModalShow(true)
+
+    const rect = event.currentTarget.getBoundingClientRect()
+    setDeleteModalPosition({
       top: rect.top + window.scrollY,
       left: rect.left + window.scrollX,
     })
   }
 
   const handleClose = () => {
-    setShow(false)
+    setCreateModalShow(false)
+    setDeleteModalShow(false)
   }
 
   return (
@@ -80,6 +103,7 @@ export default function Week() {
                   <div
                     className={styles.mySchedule}
                     key={`${fullDate}-${title}`}
+                    onClick={(e) => handleScheduleClick(e, title)}
                   >
                     {title}
                   </div>
@@ -94,12 +118,21 @@ export default function Week() {
           ))}
         </div>
       </div>
-      {show && (
+      {createModalShow && (
         <CreateModal
-          isOpen={show}
+          isOpen={createModalShow}
           handleClose={handleClose}
           date={fullDate}
-          modalPosition={modalPosition}
+          modalPosition={createModalPosition}
+        />
+      )}
+      {deleteModalShow && (
+        <DeleteModal
+          isOpen={deleteModalShow}
+          handleClose={handleClose}
+          fullDate={fullDate}
+          scheduleInfo={{ title: scheduleInfo }}
+          modalPosition={deleteModalPosition}
         />
       )}
     </div>

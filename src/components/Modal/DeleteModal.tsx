@@ -3,7 +3,7 @@ import Modal from './Modal'
 import { ReactComponent as ShareIcon } from '@assets/images/share.svg'
 import { ReactComponent as AlarmIcon } from '@assets/images/alarm.svg'
 import { modalDateFormat, timeformat } from '@utils/formatter'
-import { deleteSchedule } from '@store/schedule'
+import { deleteAllDaySchedule, deleteSchedule } from '@store/schedule'
 import { useDispatch } from 'react-redux'
 
 interface DeleteModalType {
@@ -12,8 +12,8 @@ interface DeleteModalType {
   fullDate: string
   scheduleInfo: {
     title: string
-    startTime: number
-    endTime: number
+    startTime?: number
+    endTime?: number
   } | null
   modalPosition: {
     top: number
@@ -31,7 +31,11 @@ export default function DeleteModal({
   const dispatch = useDispatch()
 
   const handleDeleteSchedule = () => {
-    dispatch(deleteSchedule({ date: fullDate, schedule: scheduleInfo }))
+    if (scheduleInfo?.startTime) {
+      dispatch(deleteSchedule({ date: fullDate, schedule: scheduleInfo }))
+    } else {
+      dispatch(deleteAllDaySchedule({ date: fullDate, schedule: scheduleInfo }))
+    }
     handleClose()
   }
 
@@ -59,11 +63,15 @@ export default function DeleteModal({
           <div>{scheduleInfo?.title}</div>
           <div className={styles.time}>
             <span>{modalDateFormat(new Date(fullDate))}</span>
-            <span>•</span>
-            <span>
-              {timeformat(scheduleInfo?.startTime || 0, 'modal')}~{' '}
-              {timeformat(scheduleInfo?.endTime || 0, 'modal')}
-            </span>
+            {scheduleInfo?.startTime && (
+              <>
+                <span>•</span>
+                <span>
+                  {timeformat(scheduleInfo?.startTime || 0, 'modal')}~{' '}
+                  {timeformat(scheduleInfo?.endTime || 0, 'modal')}
+                </span>
+              </>
+            )}
           </div>
         </div>
       </div>
