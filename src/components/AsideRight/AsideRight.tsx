@@ -55,7 +55,7 @@ export default function AsideRight() {
       <div className={styles.hiddenBtn}>
         <div className={styles.iconWrapper}>
           <div className={cn(styles.img, styles.plus)}>
-            <ChevronRight width={20} height={20} fill="rgb(95, 99, 104)" />
+            <ChevronRight width={20} height={20} fill="#5f6368" />
           </div>
         </div>
       </div>

@@ -1,3 +1,5 @@
+@import '@styles/variables.scss';
+
 .calendarListContainer {
   padding: 24px 0 8px 4px;
   display: flex;
@@ -37,7 +39,7 @@
     }
 
     &:hover {
-      background-color: #e7e8eb;
+      background-color: $button-hover-color;
     }
   }
 
@@ -71,7 +73,7 @@
 
           & > i {
             font-size: 18px;
-            color: rgb(255, 255, 255);
+            color: #ffffff;
           }
         }
       }

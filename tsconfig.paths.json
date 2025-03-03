@@ -6,6 +6,7 @@
       "@styles/*": ["styles/*"],
       "@utils/*": ["utils/*"],
       "@components/*": ["components/*"],
+      "@constants/*": ["constants/*"],
       "@hooks/*": ["hooks/*"],
       "@assets/*": ["assets/*"],
       "@store/*": ["store/*"]

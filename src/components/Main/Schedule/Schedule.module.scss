@@ -1,9 +1,11 @@
+@import '@styles/variables.scss';
+
 .todo {
   position: absolute;
   top: 0;
   z-index: 5;
   width: calc(100% - 21px);
-  background-color: rgb(3, 155, 229);
+  background-color: $my-calendar-color;
   color: white;
   border-radius: 6px;
   height: 46px;

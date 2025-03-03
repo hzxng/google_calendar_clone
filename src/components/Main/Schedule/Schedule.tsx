@@ -3,75 +3,44 @@ import styles from './Schedule.module.scss'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store/store'
 
-export default function Schedule({
-  fullDate,
-  setShow,
-  setPosition,
-  setScheduleInfo,
-}: {
+interface ScheduleProps {
   fullDate: string
-  setShow: React.Dispatch<React.SetStateAction<boolean>>
-  setPosition: React.Dispatch<
-    React.SetStateAction<{
-      top: number
-      left: number
-    }>
-  >
-  setScheduleInfo: React.Dispatch<
-    React.SetStateAction<{
-      title: string
-      startTime: number
-      endTime: number
-    } | null>
-  >
-}) {
+  handleClick: (
+    e: React.MouseEvent<HTMLDivElement>,
+    title: string,
+    date: string,
+    startTime?: number,
+    endTime?: number
+  ) => void
+}
+
+export default function Schedule({ fullDate, handleClick }: ScheduleProps) {
   const schedules = useSelector(
     (state: RootState) => state.schedule.value.schedules
   )
   const schedule: { title: string; start: number; end: number }[] =
     schedules[fullDate] || []
 
-  const handleClick = (
-    event: React.MouseEvent<HTMLDivElement>,
-    title: string,
-    startTime: number,
-    endTime: number
-  ) => {
-    setScheduleInfo({ title, startTime, endTime })
-    setShow(true)
-
-    const rect = event.currentTarget.getBoundingClientRect()
-    setPosition({
-      top: rect.top + window.scrollY,
-      left: rect.left + window.scrollX,
-    })
-  }
-
   return (
     <>
-      {schedule.map(({ title, start, end }) => (
-        <div
-          className={styles.todo}
-          style={{
-            height: `${end - start < 1 ? 22 : (end - start) * 48 - 6}px`,
-            top: `${start * 48}px`,
-          }}
-          key={`${title}-${start}-${end}`}
-          onClick={(e) => handleClick(e, title, start, end)}
-        >
-          {end - start < 1 ? (
-            <>
-              {title}, {timeformat(start)}~{timeformat(end)}
-            </>
-          ) : (
-            <>
-              {title}
-              <br />
-              {timeformat(start)}~{timeformat(end)}
-            </>
-          )}
-        </div>
-      ))}
+      {schedule.map(({ title, start, end }) => {
+        const height = end - start < 1 ? 22 : (end - start) * 48 - 6
+        const style = { height: `${height}px`, top: `${start * 48}px` }
+
+        return (
+          <div
+            className={styles.todo}
+            style={style}
+            key={`${title}-${start}-${end}`}
+            onClick={(e) => handleClick(e, title, fullDate, start, end)}
+          >
+            {title}
+            {end - start < 1 && ', '}
+            {end - start >= 1 && <br />}
+            {timeformat(start)}~{timeformat(end)}
+          </div>
+        )
+      })}
     </>
   )
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import styles from './SelectBar.module.scss'
 import cn from 'classnames'
 import { timeformat } from '@utils/formatter'
+import useClickOutside from '@hooks/useClickOutside'
 
 interface SelectBarProps<T> {
   selectType: string
@@ -19,7 +20,7 @@ export default function SelectBar<T extends string | number>({
   hasArrow,
 }: SelectBarProps<T>) {
   const [isOpen, setIsOpen] = useState(false)
-  const wrapperRef = useRef<HTMLDivElement>(null)
+  const wrapperRef = useClickOutside(() => setIsOpen(false))
   const optionsRef = useRef<HTMLUListElement>(null)
   const activeOptionRef = useRef<HTMLLIElement>(null)
 
@@ -30,7 +31,6 @@ export default function SelectBar<T extends string | number>({
     i + 0.75,
   ]).flat()
   const index = timeList.indexOf(startTime)
-
   const options = selectType === 'time' ? timeList.splice(index) : []
 
   const handleOptionClick = (option: T) => {
@@ -48,25 +48,6 @@ export default function SelectBar<T extends string | number>({
       })
     }
   }, [isOpen, optionValue])
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        wrapperRef.current &&
-        !wrapperRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false)
-      }
-    }
-
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside)
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [isOpen])
 
   return (
     <div ref={wrapperRef} className={styles.selectWrapper}>

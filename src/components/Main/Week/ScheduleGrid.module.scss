@@ -1,0 +1,52 @@
+@import '@styles/variables.scss';
+
+.schedule {
+  display: flex;
+  padding-right: 16px;
+  min-height: 24px;
+
+  & > div:nth-child(2) {
+    border-left: 1px solid $light-gray;
+  }
+
+  .daySchedule {
+    flex: 1 1 0%;
+    min-width: 80px;
+    border-right: 1px solid $light-gray;
+    padding-right: 12px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+
+    &:last-of-type {
+      border: none;
+    }
+
+    & > div {
+      padding: 0 8px;
+      height: 22px;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 400;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 2px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .holiday {
+      background-color: $holiday-color;
+    }
+
+    .mySchedule {
+      background-color: $my-calendar-color;
+    }
+  }
+}
+
+.blank {
+  width: 9px;
+  min-width: 9px;
+}

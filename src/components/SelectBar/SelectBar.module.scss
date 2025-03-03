@@ -1,8 +1,10 @@
+@import '@styles/variables.scss';
+
 .selectWrapper {
   position: relative;
 
   .selectBox {
-    background-color: #dde3ea;
+    background-color: $light-gray;
     font-size: 14px;
     padding: 0 16px;
     border-radius: 4px;
@@ -60,10 +62,10 @@
   }
 
   &:hover {
-    background-color: #dde3ea;
+    background-color: $light-gray;
   }
 }
 
 .active {
-  background-color: #dde3ea;
+  background-color: $light-gray;
 }

@@ -14,7 +14,7 @@ export const css = `
       transition: background-color 0.2s ease-in-out;
 
       &:hover {
-        background-color: #e7e8eb;
+        background-color: #e7e8eb;;
       } 
     }
   }

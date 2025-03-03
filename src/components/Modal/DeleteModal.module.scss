@@ -1,3 +1,5 @@
+@import '@styles/variables.scss';
+
 .titleWrapper {
   display: flex;
   padding-left: 28px;
@@ -42,7 +44,7 @@
     align-items: center;
     height: 42px;
     gap: 8px;
-    color: #0b57d0;
+    color: $primary-blue;
   }
 }
 

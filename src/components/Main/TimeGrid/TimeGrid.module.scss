@@ -1,3 +1,5 @@
+@import '@styles/variables.scss';
+
 .timeGrid {
   flex: 1 1 auto;
   display: grid;
@@ -6,7 +8,7 @@
 
   .dayColumn {
     min-width: 81px;
-    border-right: 1px solid #dde3ea;
+    border-right: 1px solid $light-gray;
     position: relative;
 
     &:nth-child(7) {
@@ -15,7 +17,7 @@
 
     .cell {
       min-height: 48px;
-      border-top: 1px solid #dde3ea;
+      border-top: 1px solid $light-gray;
       box-sizing: border-box;
       padding-right: 12px;
     }

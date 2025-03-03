@@ -20,7 +20,7 @@
     border-radius: 50%;
 
     &:hover {
-      background-color: #e7e8eb;
+      background-color: $button-hover-color;
     }
 
     & > svg {
@@ -67,7 +67,7 @@
       & > button:first-of-type {
         margin: 4px 20px 4px 0px;
         padding: 0 24px;
-        border: 1px solid $--gm3-button-outlined-outline-color;
+        border: 1px solid $button-outline-color;
         height: 40px;
         border-radius: 9999px;
         font-size: 14px;
@@ -75,7 +75,7 @@
         transition: background-color 0.1s ease-in-out;
 
         &:hover {
-          background-color: #e7e8eb;
+          background-color: $button-hover-color;
         }
       }
 
@@ -87,7 +87,7 @@
         transition: background-color 0.1s ease-in-out;
 
         &:hover {
-          background-color: #e7e8eb;
+          background-color: $button-hover-color;
         }
       }
     }
@@ -115,7 +115,7 @@
       border-radius: 50%;
 
       &:hover {
-        background-color: #e7e8eb;
+        background-color: $button-hover-color;
       }
     }
 
@@ -132,7 +132,7 @@
 
       & > button {
         margin: 4px 0;
-        border: 1px solid $--gm3-button-outlined-outline-color;
+        border: 1px solid $button-outline-color;
         border-radius: 9999px;
         display: flex;
         align-items: center;
@@ -151,7 +151,7 @@
         }
 
         &:hover {
-          background-color: #e7e8eb;
+          background-color: $button-hover-color;
         }
       }
     }
@@ -166,14 +166,14 @@
 
       & > button:first-of-type {
         padding: 0 14px 0 18px;
-        border: 1px solid $--gm3-button-outlined-outline-color;
+        border: 1px solid $button-outline-color;
         border-end-start-radius: 9999px;
         border-start-start-radius: 9999px;
       }
 
       & > button:last-of-type {
         padding: 0 18px 0 14px;
-        border: 1px solid $--gm3-button-outlined-outline-color;
+        border: 1px solid $button-outline-color;
         border-left: none;
         border-bottom-right-radius: 9999px;
         border-top-right-radius: 9999px;
@@ -203,7 +203,7 @@
     border-radius: 50%;
 
     &:hover {
-      background-color: #e7e8eb;
+      background-color: $button-hover-color;
     }
   }
 

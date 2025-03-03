@@ -5,13 +5,14 @@ import { ReactComponent as AlarmIcon } from '@assets/images/alarm.svg'
 import { modalDateFormat, timeformat } from '@utils/formatter'
 import { deleteAllDaySchedule, deleteSchedule } from '@store/schedule'
 import { useDispatch } from 'react-redux'
+import { getCustomModalPosition } from '@utils/getCustomModalPosition'
 
-interface DeleteModalType {
-  isOpen: boolean
+interface DeleteModalProps {
   handleClose: () => void
   fullDate: string
   scheduleInfo: {
     title: string
+    date: string
     startTime?: number
     endTime?: number
   } | null
@@ -22,36 +23,34 @@ interface DeleteModalType {
 }
 
 export default function DeleteModal({
-  isOpen,
   handleClose,
   fullDate,
   scheduleInfo,
   modalPosition,
-}: DeleteModalType) {
+}: DeleteModalProps) {
   const dispatch = useDispatch()
+  const customModalPosition = getCustomModalPosition(modalPosition, 436)
 
   const handleDeleteSchedule = () => {
     if (scheduleInfo?.startTime) {
-      dispatch(deleteSchedule({ date: fullDate, schedule: scheduleInfo }))
+      dispatch(
+        deleteSchedule({ date: scheduleInfo.date, schedule: scheduleInfo })
+      )
     } else {
-      dispatch(deleteAllDaySchedule({ date: fullDate, schedule: scheduleInfo }))
+      dispatch(
+        deleteAllDaySchedule({
+          date: scheduleInfo?.date,
+          schedule: {
+            title: scheduleInfo?.title,
+          },
+        })
+      )
     }
     handleClose()
   }
 
-  const maxLeftPosition = modalPosition.left - 470 < 82.1875
-  const maxTopPosition = modalPosition.top - 100 > 436
-
-  const customModalPosition = {
-    top: maxTopPosition ? '436px' : `${modalPosition.top - 100}px`,
-    left: maxLeftPosition
-      ? `${modalPosition.left + 100}px`
-      : `${modalPosition.left - 470}px`,
-  }
-
   return (
     <Modal
-      isOpen={isOpen}
       handleClose={handleClose}
       type="delete"
       handleDelete={handleDeleteSchedule}
