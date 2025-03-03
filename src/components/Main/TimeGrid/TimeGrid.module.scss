@@ -9,7 +9,7 @@
     border-right: 1px solid #dde3ea;
     position: relative;
 
-    &:last-of-type {
+    &:nth-child(7) {
       border: none;
     }
 

@@ -44,7 +44,7 @@ export default function TimeGrid() {
         <CreateModal
           handleClose={handleClose}
           date={fullDate}
-          time={startTime}
+          startTime={startTime}
         />
       )}
     </div>

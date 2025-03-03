@@ -4,21 +4,23 @@ import cn from 'classnames'
 import { useDispatch } from 'react-redux'
 import { createSchedule } from '@store/schedule'
 import { modalDateFormat, timeformat } from '@utils/formatter'
+import SelectBar from '@components/SelectBar/SelectBar'
 
 export default function CreateModal({
   handleClose,
   date,
-  time,
+  startTime,
 }: {
   handleClose: () => void
   date: string
-  time: number
+  startTime: number
 }) {
   const [title, setTitle] = useState('')
   const [isFocus, setIsFocus] = useState(false)
   const [isClicked, setIsClicked] = useState(false)
-  const [selectedStart, setSelectedStart] = useState<number>(time)
-  const [selectedEnd, setSelectedEnd] = useState<number>(time + 1)
+  const [selectedStart, setSelectedStart] = useState<number>(startTime)
+  const [selectedEnd, setSelectedEnd] = useState<number>(startTime + 1)
+  const [selectedRepeat, setSelectedRepeat] = useState<string>('반복 안함')
 
   const dispatch = useDispatch()
 
@@ -27,7 +29,12 @@ export default function CreateModal({
   }, [])
 
   const handleClickSave = () => {
-    const newSchedule = { title, start: selectedStart, end: selectedEnd }
+    console.log(selectedEnd)
+    const newSchedule = {
+      title: title || '(제목 없음)',
+      start: selectedStart,
+      end: selectedEnd,
+    }
     dispatch(createSchedule({ date, newSchedule }))
 
     handleClose()
@@ -67,9 +74,9 @@ export default function CreateModal({
                 >
                   <div>
                     <span>{modalDateFormat(new Date(date))}</span>
-                    <span>{timeformat(time, 'modal')}</span>
+                    <span>{timeformat(startTime, 'modal')}</span>
                     <span>-</span>
-                    <span>{timeformat(time + 1, 'modal')}</span>
+                    <span>{timeformat(startTime + 1, 'modal')}</span>
                   </div>
                   <div>시간대 • 반복 안함</div>
                 </button>
@@ -78,9 +85,18 @@ export default function CreateModal({
                 <div className={styles.selects}>
                   <div className={styles.selectTimeWrapper}>
                     <button>{modalDateFormat(new Date(date))}</button>
-                    <button>{timeformat(selectedStart, 'modal')}</button>
+                    <SelectBar
+                      selectType="time"
+                      setOption={setSelectedStart}
+                      optionValue={selectedStart}
+                    />
                     <span>-</span>
-                    <button>{timeformat(selectedEnd, 'modal')}</button>
+                    <SelectBar
+                      selectType="time"
+                      setOption={setSelectedEnd}
+                      optionValue={selectedEnd}
+                      startTime={selectedStart}
+                    />
                   </div>
                   <div>
                     <div className={styles.checkAllDay}>
@@ -90,17 +106,16 @@ export default function CreateModal({
                       </label>
                       <span>시간대</span>
                     </div>
-                    <button className={styles.repeatBtn}>
-                      반복 안함
-                      <i className="material-symbols-outlined">
-                        arrow_drop_down
-                      </i>
-                    </button>
+                    <SelectBar
+                      selectType="repeat"
+                      setOption={setSelectedRepeat}
+                      optionValue={selectedRepeat}
+                      hasArrow
+                    />
                   </div>
                 </div>
               )}
             </div>
-            <div></div>
           </div>
         </div>
       </div>

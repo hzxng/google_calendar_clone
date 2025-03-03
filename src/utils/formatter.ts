@@ -5,11 +5,18 @@ export const dateformat = (date: Date) => {
 }
 
 export const timeformat = (time: number, type?: string) => {
-  if (type === 'modal') {
-    if (time === 0) return `오전 12:00`
-    return time < 12 ? `오전 ${time}:00` : `오후 ${time % 12 || 12}:00`
-  }
-  return time < 12 ? `오전 ${time}시` : `오후 ${time % 12 || 12}시`
+  const hour = Math.floor(time)
+  const minutes = Math.round((time % 1) * 60)
+
+  const period = hour < 12 ? '오전' : '오후'
+  const formattedHour = hour % 12 || 12
+  const formattedMinutes = minutes.toString().padStart(2, '0')
+
+  if (type === 'modal') return `${period} ${formattedHour}:${formattedMinutes}`
+
+  return Math.floor(time) === time
+    ? `${period} ${formattedHour}시`
+    : `${period} ${formattedHour}:${formattedMinutes}`
 }
 
 export const modalDateFormat = (date: Date) => {
