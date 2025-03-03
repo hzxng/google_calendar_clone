@@ -10,15 +10,27 @@ export default function TimeGrid() {
   const [show, setShow] = useState(false)
   const [fullDate, setFullDate] = useState('')
   const [startTime, setStartTime] = useState(0)
+  const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 })
+
   const selectedDate = useSelector((state: RootState) => state.date.value)
 
   const hours = Array.from({ length: 24 }, (_, i) => i)
   const week = getWeek(selectedDate)
 
-  const handleClick = (date: string, time: number) => {
+  const handleClick = (
+    event: React.MouseEvent<HTMLDivElement>,
+    date: string,
+    time: number
+  ) => {
     setShow(true)
     setFullDate(date)
     setStartTime(time)
+
+    const rect = event.currentTarget.getBoundingClientRect()
+    setModalPosition({
+      top: rect.top + window.scrollY,
+      left: rect.left + window.scrollX,
+    })
   }
 
   const handleClose = () => {
@@ -33,7 +45,7 @@ export default function TimeGrid() {
             <div
               className={styles.cell}
               key={`${fullDate}-${h}`}
-              onClick={() => handleClick(fullDate, h)}
+              onClick={(e) => handleClick(e, fullDate, h)}
             />
           ))}
 
@@ -45,6 +57,7 @@ export default function TimeGrid() {
           handleClose={handleClose}
           date={fullDate}
           startTime={startTime}
+          modalPosition={modalPosition}
         />
       )}
     </div>

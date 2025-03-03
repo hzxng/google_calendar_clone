@@ -7,16 +7,31 @@ export default function Modal({
   children,
   type,
   handleDelete,
+  modalPosition,
 }: {
   handleClose: () => void
   children: React.ReactNode
   type?: string
   handleDelete?: () => void
+  modalPosition: {
+    top: number
+    left: number
+  }
 }) {
   const isDelete = type === 'delete'
+  const maxLeftPosition = modalPosition.left - 470 < 82.1875
+  const maxTopPosition = modalPosition.top - 100 > 388
 
   return (
-    <div className={styles.modalContainer}>
+    <div
+      className={styles.modalContainer}
+      style={{
+        top: maxTopPosition ? '388px' : `${modalPosition.top - 100}px`,
+        left: maxLeftPosition
+          ? `${modalPosition.left + 130}px`
+          : `${modalPosition.left - 470}px`,
+      }}
+    >
       <div
         className={cn(styles.modalHeader, {
           [styles.deleteModalHeader]: isDelete,

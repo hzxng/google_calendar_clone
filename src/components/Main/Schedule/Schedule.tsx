@@ -24,10 +24,22 @@ export default function Schedule({
     startTime: number
     endTime: number
   } | null>(null)
+  const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 })
 
-  const handleClick = (title: string, startTime: number, endTime: number) => {
+  const handleClick = (
+    event: React.MouseEvent<HTMLDivElement>,
+    title: string,
+    startTime: number,
+    endTime: number
+  ) => {
     setScheduleInfo({ title, startTime, endTime })
     setShow(true)
+
+    const rect = event.currentTarget.getBoundingClientRect()
+    setModalPosition({
+      top: rect.top + window.scrollY,
+      left: rect.left + window.scrollX,
+    })
   }
 
   const handleClose = () => {
@@ -44,7 +56,7 @@ export default function Schedule({
             top: `${start * 48}px`,
           }}
           key={`${title}-${start}-${end}`}
-          onClick={() => handleClick(title, start, end)}
+          onClick={(e) => handleClick(e, title, start, end)}
         >
           {title}
           <br />
@@ -57,6 +69,7 @@ export default function Schedule({
           date={date}
           fullDate={fullDate}
           scheduleInfo={scheduleInfo}
+          modalPosition={modalPosition}
         />
       )}
     </>

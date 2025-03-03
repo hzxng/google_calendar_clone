@@ -15,6 +15,10 @@ interface DeleteModalType {
     startTime: number
     endTime: number
   } | null
+  modalPosition: {
+    top: number
+    left: number
+  }
 }
 
 export default function DeleteModal({
@@ -22,6 +26,7 @@ export default function DeleteModal({
   date,
   fullDate,
   scheduleInfo,
+  modalPosition,
 }: DeleteModalType) {
   const dispatch = useDispatch()
 
@@ -35,6 +40,7 @@ export default function DeleteModal({
       handleClose={handleClose}
       type="delete"
       handleDelete={handleDeleteSchedule}
+      modalPosition={modalPosition}
     >
       <div className={styles.titleWrapper}>
         <div className={styles.badge} />

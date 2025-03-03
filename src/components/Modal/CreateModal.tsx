@@ -11,10 +11,15 @@ export default function CreateModal({
   handleClose,
   date,
   startTime,
+  modalPosition,
 }: {
   handleClose: () => void
   date: string
   startTime: number
+  modalPosition: {
+    top: number
+    left: number
+  }
 }) {
   const [title, setTitle] = useState('')
   const [isFocus, setIsFocus] = useState(false)
@@ -41,7 +46,7 @@ export default function CreateModal({
   }
 
   return (
-    <Modal handleClose={handleClose}>
+    <Modal handleClose={handleClose} modalPosition={modalPosition}>
       <div className={styles.container}>
         <div className={styles.title}>
           <input
