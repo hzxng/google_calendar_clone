@@ -53,15 +53,23 @@ export default function Schedule({
         <div
           className={styles.todo}
           style={{
-            height: `${(end - start) * 48 - 6}px`,
+            height: `${end - start < 1 ? 22 : (end - start) * 48 - 6}px`,
             top: `${start * 48}px`,
           }}
           key={`${title}-${start}-${end}`}
           onClick={(e) => handleClick(e, title, start, end)}
         >
-          {title}
-          <br />
-          {timeformat(start)}~{timeformat(end)}
+          {end - start < 1 ? (
+            <>
+              {title}, {timeformat(start)}~{timeformat(end)}
+            </>
+          ) : (
+            <>
+              {title}
+              <br />
+              {timeformat(start)}~{timeformat(end)}
+            </>
+          )}
         </div>
       ))}
     </>

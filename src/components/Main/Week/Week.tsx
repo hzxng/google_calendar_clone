@@ -4,17 +4,44 @@ import { dateformat, weekDays } from '@utils/formatter'
 import cn from 'classnames'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store/store'
+import { useState } from 'react'
+import CreateModal from '@components/Modal/CreateModal'
 
 export default function Week() {
   const selectedDate = useSelector((state: RootState) => state.date.value)
+  const [show, setShow] = useState(false)
+  const [fullDate, setFullDate] = useState('')
+  const [modalPosition, setModalPosition] = useState({
+    top: 0,
+    left: 0,
+  })
 
   const holidays = new Map()
   holidays.set('2025-3-3', ['삼일절'])
 
-  const myAllDaySchedule = new Map()
-  myAllDaySchedule.set('2025-3-2', ['과제1', '과제2'])
+  const myAllDaySchedule = useSelector(
+    (state: RootState) => state.schedule.value.allDaySchedules
+  )
 
   const week = getWeek(selectedDate)
+
+  const handleClick = (
+    event: React.MouseEvent<HTMLDivElement>,
+    date: string
+  ) => {
+    setShow(true)
+    setFullDate(date)
+
+    const rect = event.currentTarget.getBoundingClientRect()
+    setModalPosition({
+      top: rect.top + window.scrollY,
+      left: rect.left + window.scrollX,
+    })
+  }
+
+  const handleClose = () => {
+    setShow(false)
+  }
 
   return (
     <div className={styles.weekContainer}>
@@ -43,9 +70,13 @@ export default function Week() {
         <div className={styles.schedule}>
           <div className={styles.blank} />
           {week.map(({ fullDate }) => (
-            <div className={styles.daySchedule} key={fullDate}>
-              {myAllDaySchedule.has(fullDate) &&
-                myAllDaySchedule.get(fullDate).map((title: string) => (
+            <div
+              className={styles.daySchedule}
+              key={fullDate}
+              onClick={(e) => handleClick(e, fullDate)}
+            >
+              {myAllDaySchedule[fullDate] &&
+                myAllDaySchedule[fullDate].map((title: string) => (
                   <div
                     className={styles.mySchedule}
                     key={`${fullDate}-${title}`}
@@ -63,6 +94,14 @@ export default function Week() {
           ))}
         </div>
       </div>
+      {show && (
+        <CreateModal
+          isOpen={show}
+          handleClose={handleClose}
+          date={fullDate}
+          modalPosition={modalPosition}
+        />
+      )}
     </div>
   )
 }

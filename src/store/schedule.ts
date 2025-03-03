@@ -50,6 +50,8 @@ export const scheduleSlice = createSlice({
     },
     createAllDaySchedule: (state, action) => {
       const { date, allDayEvent } = action.payload
+
+      console.log(date, allDayEvent)
       state.value.allDaySchedules[date] = [
         ...(state.value.allDaySchedules[date] || []),
         allDayEvent,

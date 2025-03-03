@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import styles from './CreateModal.module.scss'
 import cn from 'classnames'
 import { useDispatch } from 'react-redux'
-import { createSchedule } from '@store/schedule'
+import { createAllDaySchedule, createSchedule } from '@store/schedule'
 import { modalDateFormat, timeformat } from '@utils/formatter'
 import SelectBar from '@components/SelectBar/SelectBar'
 import Modal from './Modal'
@@ -17,7 +17,7 @@ export default function CreateModal({
   isOpen: boolean
   handleClose: () => void
   date: string
-  startTime: number
+  startTime?: number
   modalPosition: {
     top: number
     left: number
@@ -26,9 +26,10 @@ export default function CreateModal({
   const [title, setTitle] = useState('')
   const [isFocus, setIsFocus] = useState(false)
   const [isClicked, setIsClicked] = useState(false)
-  const [selectedStart, setSelectedStart] = useState<number>(startTime)
-  const [selectedEnd, setSelectedEnd] = useState<number>(startTime + 1)
+  const [selectedStart, setSelectedStart] = useState<number>(startTime || 0)
+  const [selectedEnd, setSelectedEnd] = useState<number>(selectedStart + 1)
   const [selectedRepeat, setSelectedRepeat] = useState<string>('반복 안함')
+  const [isCheckAllDay, setIsCheckAllDay] = useState(false)
 
   const maxLeftPosition = modalPosition.left - 470 < 82.1875
   const maxTopPosition = modalPosition.top - 100 > 388
@@ -47,12 +48,17 @@ export default function CreateModal({
   }, [])
 
   const handleClickSave = () => {
-    const newSchedule = {
-      title: title || '(제목 없음)',
-      start: selectedStart,
-      end: selectedEnd,
+    const scheduleTitle = title || '(제목 없음)'
+    if (startTime && !isCheckAllDay) {
+      const newSchedule = {
+        title: scheduleTitle,
+        start: selectedStart,
+        end: selectedEnd,
+      }
+      dispatch(createSchedule({ date, newSchedule }))
+    } else {
+      dispatch(createAllDaySchedule({ date, allDayEvent: scheduleTitle }))
     }
-    dispatch(createSchedule({ date, newSchedule }))
 
     handleClose()
   }
@@ -89,9 +95,18 @@ export default function CreateModal({
                 >
                   <div>
                     <span>{modalDateFormat(new Date(date))}</span>
-                    <span>{timeformat(startTime, 'modal')}</span>
-                    <span>-</span>
-                    <span>{timeformat(startTime + 1, 'modal')}</span>
+                    {startTime ? (
+                      <>
+                        <span>{timeformat(selectedStart, 'modal')}</span>
+                        <span>-</span>
+                        <span>{timeformat(selectedEnd, 'modal')}</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>-</span>
+                        <span>{modalDateFormat(new Date(date))}</span>
+                      </>
+                    )}
                   </div>
                   <div>시간대 • 반복 안함</div>
                 </button>
@@ -100,23 +115,36 @@ export default function CreateModal({
                 <div className={styles.selects}>
                   <div className={styles.selectTimeWrapper}>
                     <button>{modalDateFormat(new Date(date))}</button>
-                    <SelectBar
-                      selectType="time"
-                      setOption={setSelectedStart}
-                      optionValue={selectedStart}
-                    />
-                    <span>-</span>
-                    <SelectBar
-                      selectType="time"
-                      setOption={setSelectedEnd}
-                      optionValue={selectedEnd}
-                      startTime={selectedStart}
-                    />
+                    {isCheckAllDay ? (
+                      <>
+                        <span>-</span>
+                        <button>{modalDateFormat(new Date(date))}</button>
+                      </>
+                    ) : (
+                      <>
+                        <SelectBar
+                          selectType="time"
+                          setOption={setSelectedStart}
+                          optionValue={selectedStart}
+                        />
+                        <span>-</span>
+                        <SelectBar
+                          selectType="time"
+                          setOption={setSelectedEnd}
+                          optionValue={selectedEnd}
+                          startTime={selectedStart}
+                        />
+                      </>
+                    )}
                   </div>
                   <div>
                     <div className={styles.checkAllDay}>
                       <label>
-                        <input type="checkbox" />
+                        <input
+                          type="checkbox"
+                          checked={isCheckAllDay}
+                          onChange={(e) => setIsCheckAllDay(e.target.checked)}
+                        />
                         종일
                       </label>
                       <span>시간대</span>
